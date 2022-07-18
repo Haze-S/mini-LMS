@@ -5,8 +5,12 @@
   <title>fastlms</title>
 </head>
 <body>
-<h1>인덱스 페이지</h1>
-<div th:replace="/fragments/layout.html::fragment-body-menu"></div>
-<hr/>
+<h1>에러 화면</h1>
+
+<p th:text="${message}"></p>
+
+<div>
+  <a href="/">홈으로 이동</a>
+</div>
 </body>
 </html>

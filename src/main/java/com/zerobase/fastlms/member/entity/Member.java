@@ -1,10 +1,14 @@
 package com.zerobase.fastlms.member.entity;
 
-import lombok.*;
-
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -15,22 +19,22 @@ import java.time.LocalDateTime;
 @Builder
 public class Member implements MemberCode {
 
-    @Id
-    private String userId;
+  @Id
+  private String userId;
 
-    private String userName;
-    private String phoneNumber;
-    private String password;
-    private LocalDateTime regDt;
+  private String userName;
+  private String phoneNumber;
+  private String password;
+  private LocalDateTime regDt;
 
-    private String emailAuthKey;
-    private LocalDateTime emailAuthDt;
-    private boolean emailAuthYn;
+  private String emailAuthKey;
+  private LocalDateTime emailAuthDt;
+  private boolean emailAuthYn;
 
-    private String resetPasswordKey;
-    private LocalDateTime resetPasswordLimitDt;
+  private String resetPasswordKey;
+  private LocalDateTime resetPasswordLimitDt;
 
-    private boolean adminYn;
+  private boolean adminYn;
 
-    private String userStatus;
+  private String userStatus;
 }

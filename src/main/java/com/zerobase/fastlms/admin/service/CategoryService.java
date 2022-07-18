@@ -13,18 +13,21 @@ public interface CategoryService {
 
   /**
    * 카테고리 신규 추가
+   *
    * @param categoryName
    */
   boolean add(String categoryName);
 
   /**
    * 카테고리 수정
+   *
    * @param parameter
    */
   boolean update(CategoryInput parameter);
 
   /**
    * 카테고리 삭제
+   *
    * @param id
    */
   boolean del(long id);

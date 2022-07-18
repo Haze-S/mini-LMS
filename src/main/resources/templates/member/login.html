@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>fastlms</title>
-    </head>
-    <body>
-        <h1>로그인</h1>
-        <div th:replace="/fragments/layout.html::fragment-body-menu"></div>
+<head>
+  <meta charset="UTF-8">
+  <title>fastlms</title>
+</head>
+<body>
+<h1>로그인</h1>
+<div th:replace="/fragments/layout.html::fragment-body-menu"></div>
 
-        <div th:text="${errorMessage}"></div>
+<div th:text="${errorMessage}"></div>
 
-        <form method="post">
-            <div>
-                <input type="text" name="username" placeholder="이메일" required/>
-            </div>
-            <div>
-                <button type="submit">로그인</button>
-            </div>
-        </form>
-        <div>
-            <a href="/member/find/password">비밀번호 찾기</a>
-        </div>
-    </body>
+<form method="post">
+  <div>
+    <input type="text" name="username" placeholder="이메일" required/>
+  </div>
+  <div>
+    <button type="submit">로그인</button>
+  </div>
+</form>
+<div>
+  <a href="/member/find/password">비밀번호 찾기</a>
+</div>
+</body>
 </html>

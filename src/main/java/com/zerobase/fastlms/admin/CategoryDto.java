@@ -13,16 +13,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CategoryDto {
+
   Long id;
   String categoryName;
   int sortValue;
   boolean usingYn;
 
-  public static List<CategoryDto> of (List<Category> categories) {
+  public static List<CategoryDto> of(List<Category> categories) {
 
     if (categories != null) {
       List<CategoryDto> categoryDtoList = new ArrayList<>();
-      for(Category x : categories) {
+      for (Category x : categories) {
         categoryDtoList.add(of(x));
       }
       return categoryDtoList;
@@ -30,7 +31,7 @@ public class CategoryDto {
     return null;
   }
 
-  public static CategoryDto of (Category category) {
+  public static CategoryDto of(Category category) {
     return CategoryDto.builder()
         .id(category.getId())
         .categoryName(category.getCategoryName())

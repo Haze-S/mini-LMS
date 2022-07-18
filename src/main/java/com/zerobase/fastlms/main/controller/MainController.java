@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
 
-    private final MailComponents mailComponents;
+  private final MailComponents mailComponents;
 
-    @RequestMapping("/")
-    public String index() {
-
-//        mailComponents.sendMail();
-
-        return "index";
-    }
-
-    @RequestMapping("/error/denied")
-    public String errorDenied() {
+  @RequestMapping("/")
+  public String index() {
 
 //        mailComponents.sendMail();
 
-        return "error/denied";
-    }
+    return "index";
+  }
+
+  @RequestMapping("/error/denied")
+  public String errorDenied() {
+
+//        mailComponents.sendMail();
+
+    return "error/denied";
+  }
 
 }

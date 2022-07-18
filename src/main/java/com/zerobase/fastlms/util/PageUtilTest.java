@@ -2,11 +2,11 @@ package com.zerobase.fastlms.util;
 
 public class PageUtilTest {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        PageUtil pageUtil = new PageUtil(151, 1, 3, "");
-        String htmlPager = pageUtil.pager();
+    PageUtil pageUtil = new PageUtil(151, 1, 3, "");
+    String htmlPager = pageUtil.pager();
 
-        System.out.println(htmlPager);
-    }
+    System.out.println(htmlPager);
+  }
 }

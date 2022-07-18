@@ -1,11 +1,10 @@
 package com.zerobase.fastlms.admin.dto;
 
 import com.zerobase.fastlms.member.entity.Member;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -13,41 +12,42 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class MemberDto {
-    String userId;
-    String userName;
-    String phone;
-    String password;
-    LocalDateTime regDt;
 
-    boolean emailAuthYn;
-    LocalDateTime emailAuthDt;
-    String emailAuthKey;
+  String userId;
+  String userName;
+  String phone;
+  String password;
+  LocalDateTime regDt;
 
-    String resetPasswordKey;
-    LocalDateTime resetPasswordLimitDt;
+  boolean emailAuthYn;
+  LocalDateTime emailAuthDt;
+  String emailAuthKey;
 
-    boolean adminYn;
-    String userStatus;
+  String resetPasswordKey;
+  LocalDateTime resetPasswordLimitDt;
 
-    long totalCount;
-    long seq;
+  boolean adminYn;
+  String userStatus;
 
-    public static MemberDto of(Member member) {
+  long totalCount;
+  long seq;
 
-        return MemberDto.builder()
-            .userId(member.getUserId())
-            .userName(member.getUserName())
-            .phone(member.getPhoneNumber())
-            .password(member.getPassword())
-            .regDt(member.getRegDt())
-            .emailAuthYn(member.isEmailAuthYn())
-            .emailAuthDt(member.getEmailAuthDt())
-            .emailAuthKey(member.getEmailAuthKey())
-            .resetPasswordKey(member.getResetPasswordKey())
-            .resetPasswordLimitDt(member.getResetPasswordLimitDt())
-            .adminYn(member.isAdminYn())
-            .userName(member.getUserStatus())
-            .build();
-    }
+  public static MemberDto of(Member member) {
+
+    return MemberDto.builder()
+        .userId(member.getUserId())
+        .userName(member.getUserName())
+        .phone(member.getPhoneNumber())
+        .password(member.getPassword())
+        .regDt(member.getRegDt())
+        .emailAuthYn(member.isEmailAuthYn())
+        .emailAuthDt(member.getEmailAuthDt())
+        .emailAuthKey(member.getEmailAuthKey())
+        .resetPasswordKey(member.getResetPasswordKey())
+        .resetPasswordLimitDt(member.getResetPasswordLimitDt())
+        .adminYn(member.isAdminYn())
+        .userName(member.getUserStatus())
+        .build();
+  }
 }
 

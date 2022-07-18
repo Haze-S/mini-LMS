@@ -17,62 +17,62 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final MemberService memberService;
+  private final MemberService memberService;
 
-    @Bean
-    PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  PasswordEncoder getPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    UserAuthenticationFailureHandler getFailureHandler() {
-        return new UserAuthenticationFailureHandler();
-    }
+  @Bean
+  UserAuthenticationFailureHandler getFailureHandler() {
+    return new UserAuthenticationFailureHandler();
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable();  // 토큰 비실행 - 보안적 이슈 있음
+    http.csrf().disable();  // 토큰 비실행 - 보안적 이슈 있음
 
-        // 주소 url에 유저에게 권한을 준다.
-        http.authorizeRequests()
-                .antMatchers(
-                        "/"
-                        ,"/member/register"
-                        ,"/member/email-auth"
-                        ,"/member/find/password"
-                        ,"/member/reset/password"
-                        ,"/admin/main"
-                )
-                .permitAll();
+    // 주소 url에 유저에게 권한을 준다.
+    http.authorizeRequests()
+        .antMatchers(
+            "/"
+            , "/member/register"
+            , "/member/email-auth"
+            , "/member/find/password"
+            , "/member/reset/password"
+            , "/admin/main"
+        )
+        .permitAll();
 
-        http.authorizeRequests()
-                .antMatchers("/admin/**")
-                .hasAuthority("ROLE_ADMIN");
+    http.authorizeRequests()
+        .antMatchers("/admin/**")
+        .hasAuthority("ROLE_ADMIN");
 
-        http.formLogin()
-                .loginPage("/member/login")
-                .failureHandler(getFailureHandler())
-                .permitAll();
+    http.formLogin()
+        .loginPage("/member/login")
+        .failureHandler(getFailureHandler())
+        .permitAll();
 
-        http.logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+    http.logout()
+        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+        .logoutSuccessUrl("/")
+        .invalidateHttpSession(true);
 
-        http.exceptionHandling()
-                .accessDeniedPage("/error/denied");
+    http.exceptionHandling()
+        .accessDeniedPage("/error/denied");
 
-        super.configure(http);
-    }
+    super.configure(http);
+  }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(memberService)
-                .passwordEncoder(getPasswordEncoder());
+    auth.userDetailsService(memberService)
+        .passwordEncoder(getPasswordEncoder());
 
-        super.configure(auth);
-    }
+    super.configure(auth);
+  }
 
 }

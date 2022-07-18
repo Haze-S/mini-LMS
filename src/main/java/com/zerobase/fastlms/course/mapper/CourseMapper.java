@@ -10,5 +10,6 @@ public interface CourseMapper {
 
 
   long selectListCount(CourseParam parameter);
+
   List<CourseDto> selectList(CourseParam parameter);
 }
