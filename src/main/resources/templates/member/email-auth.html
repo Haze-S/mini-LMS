@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>fastlms</title>
+    </head>
+    <body>
+        <h1>회원 활성화</h1>
+        <div th:replace="/fragments/layout.html::fragment-body-menu"></div>
+
+        <div th:if="${result eq true}">
+            <p>계정이 활성화되었습니다.</p>
+        </div>
+
+        <div th:if="${result eq false}">
+            <p>계정 활성화에 실패하였습니다.</p>
+        </div>
+    </body>
+</html>
