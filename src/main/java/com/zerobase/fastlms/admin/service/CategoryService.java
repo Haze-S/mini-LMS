@@ -1,6 +1,6 @@
 package com.zerobase.fastlms.admin.service;
 
-import com.zerobase.fastlms.admin.CategoryDto;
+import com.zerobase.fastlms.admin.dto.CategoryDto;
 import com.zerobase.fastlms.admin.model.CategoryInput;
 import java.util.List;
 
@@ -31,5 +31,12 @@ public interface CategoryService {
    * @param id
    */
   boolean del(long id);
+
+  /**
+   * 프론트 카테고리 정보
+   *
+   * @param parameter
+   */
+  List<CategoryDto> frontList(CategoryDto parameter);
 
 }

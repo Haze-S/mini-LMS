@@ -1,4 +1,4 @@
-package com.zerobase.fastlms.admin;
+package com.zerobase.fastlms.admin.dto;
 
 import com.zerobase.fastlms.admin.entity.Category;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 @Builder
 @AllArgsConstructor
@@ -18,6 +19,9 @@ public class CategoryDto {
   String categoryName;
   int sortValue;
   boolean usingYn;
+
+  //ADD COLUMNS
+  int courseCount;
 
   public static List<CategoryDto> of(List<Category> categories) {
 

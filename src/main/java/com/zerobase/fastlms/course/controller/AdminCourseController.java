@@ -1,7 +1,7 @@
 package com.zerobase.fastlms.course.controller;
 
 import com.zerobase.fastlms.admin.service.CategoryService;
-import com.zerobase.fastlms.course.CourseParam;
+import com.zerobase.fastlms.course.model.CourseParam;
 import com.zerobase.fastlms.course.dto.CourseDto;
 import com.zerobase.fastlms.course.model.CourseInput;
 import com.zerobase.fastlms.course.service.CourseService;
@@ -45,9 +45,7 @@ public class AdminCourseController extends BaseController {
   }
 
   @GetMapping(value = {"/admin/course/add", "/admin/course/edit"})
-  public String add(Model model, HttpServletRequest request
-      , CourseInput parameter
-  ) {
+  public String add(Model model, HttpServletRequest request, CourseInput parameter) {
 
     model.addAttribute("category", categoryService.list());
 
@@ -86,6 +84,14 @@ public class AdminCourseController extends BaseController {
     } else {
       boolean result = courseService.add(parameter);
     }
+
+    return "redirect:/admin/course/list";
+  }
+
+  @PostMapping("/admin/course/delete")
+  public String del(Model model, HttpServletRequest request, CourseInput parameter) {
+
+    boolean result = courseService.del(parameter.getIdList());
 
     return "redirect:/admin/course/list";
   }

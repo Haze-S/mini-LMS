@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     http.csrf().disable();  // 토큰 비실행 - 보안적 이슈 있음
+    http.headers().frameOptions().sameOrigin();
 
     // 주소 url에 유저에게 권한을 준다.
     http.authorizeRequests()

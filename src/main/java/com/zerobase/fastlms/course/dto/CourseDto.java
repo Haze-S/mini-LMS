@@ -3,6 +3,8 @@ package com.zerobase.fastlms.course.dto;
 import com.zerobase.fastlms.course.entity.Course;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,5 +49,18 @@ public class CourseDto {
         .regDt(course.getRegDt())
         .udtDt(course.getUdtDt())
         .build();
+  }
+
+  public static List<CourseDto> of(List<Course> courseList) {
+
+    if (courseList == null) {
+      return null;
+    }
+
+    List<CourseDto> courseDtoList = new ArrayList<>();
+    for (Course x : courseList) {
+      courseDtoList.add(CourseDto.of(x));
+    }
+    return courseDtoList;
   }
 }
