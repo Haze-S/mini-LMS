@@ -2,6 +2,7 @@ package com.zerobase.fastlms.member.service;
 
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.model.MemberParam;
+import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import java.util.List;
@@ -69,4 +70,18 @@ public interface MemberService extends UserDetailsService {
    * @param password
    */
   boolean updatePassword(String userId, String password);
+
+  /**
+   * 회원 정보 페이지내 비밀번호 변경
+   *
+   * @param parameter
+   */
+  ServiceResult updateMemberPassword(MemberInput parameter);
+
+  /**
+   * 회원 정보 수정
+   *
+   * @param memberInput
+   */
+  ServiceResult updateMember(MemberInput memberInput);
 }

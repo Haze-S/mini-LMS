@@ -1,9 +1,12 @@
 package com.zerobase.fastlms.member.service.impl;
 
+import static java.time.LocalDateTime.now;
+
 import com.zerobase.fastlms.admin.dto.MemberDto;
 import com.zerobase.fastlms.admin.mapper.MemberMapper;
 import com.zerobase.fastlms.admin.model.MemberParam;
 import com.zerobase.fastlms.components.MailComponents;
+import com.zerobase.fastlms.course.model.ServiceResult;
 import com.zerobase.fastlms.member.entity.Member;
 import com.zerobase.fastlms.member.exception.MemberNotAuthException;
 import com.zerobase.fastlms.member.exception.MemberStopUserException;
@@ -52,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
         .userName(parameter.getUserName())
         .phoneNumber(parameter.getPhone())
         .password(encPassword)
-        .regDt(LocalDateTime.now())
+        .regDt(now())
         .emailAuthYn(false)
         .emailAuthKey(uuid)
         .userStatus(Member.MEMBER_STATUS_REQ)
@@ -87,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
 
     member.setUserStatus(Member.MEMBER_STATUS_ING);
     member.setEmailAuthYn(true);
-    member.setEmailAuthDt(LocalDateTime.now());
+    member.setEmailAuthDt(now());
     memberRepository.save(member);
 
     return true;
@@ -106,7 +109,7 @@ public class MemberServiceImpl implements MemberService {
     String uuid = UUID.randomUUID().toString();
 
     member.setResetPasswordKey(uuid);
-    member.setResetPasswordLimitDt(LocalDateTime.now().plusDays(1));
+    member.setResetPasswordLimitDt(now().plusDays(1));
     memberRepository.save(member);
 
     String email = parameter.getUserId();
@@ -135,7 +138,7 @@ public class MemberServiceImpl implements MemberService {
       throw new RuntimeException("유효한 링크가 아닙니다.");
     }
 
-    if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
+    if (member.getResetPasswordLimitDt().isBefore(now())) {
       throw new RuntimeException("유효한 링크가 아닙니다.");
     }
 
@@ -163,7 +166,7 @@ public class MemberServiceImpl implements MemberService {
       throw new RuntimeException("유효한 링크가 아닙니다.");
     }
 
-    if (member.getResetPasswordLimitDt().isBefore(LocalDateTime.now())) {
+    if (member.getResetPasswordLimitDt().isBefore(now())) {
       throw new RuntimeException("유효한 링크가 아닙니다.");
     }
 
@@ -230,6 +233,50 @@ public class MemberServiceImpl implements MemberService {
     memberRepository.save(member);
 
     return true;
+  }
+
+  @Override
+  public ServiceResult updateMemberPassword(MemberInput parameter) {
+
+    String userId = parameter.getUserId();
+
+    Optional<Member> optionalMember = memberRepository.findById(userId);
+    if (!optionalMember.isPresent()) {
+      return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+    }
+
+    Member member = optionalMember.get();
+
+    if (!BCrypt.checkpw(parameter.getPassword(), member.getPassword())) {
+      return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+    }
+
+    String encPassword = BCrypt.hashpw(parameter.getNewPassword(), BCrypt.gensalt());
+    member.setPassword(encPassword);
+    memberRepository.save(member);
+
+    return new ServiceResult(true);
+  }
+
+  @Override
+  public ServiceResult updateMember(MemberInput parameter) {
+    String userId = parameter.getUserId();
+
+    Optional<Member> optionalMember = memberRepository.findById(userId);
+    if (!optionalMember.isPresent()) {
+      return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+    }
+
+    Member member = optionalMember.get();
+
+    member.setPhoneNumber(parameter.getPhone());
+    member.setZipcode(parameter.getZipcode());
+    member.setAddr(parameter.getAddr());
+    member.setAddrDetail(parameter.getAddrDetail());
+    member.setUdtDt(now());
+    memberRepository.save(member);
+
+    return new ServiceResult(true);
   }
 
   @Override

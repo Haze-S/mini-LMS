@@ -7,4 +7,6 @@ public class TakeCourseInput {
 
   String userId;
   long courseId;
+
+  long takeCourseId;
 }
