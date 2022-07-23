@@ -7,6 +7,7 @@ import com.zerobase.fastlms.course.service.TakeCourseService;
 import com.zerobase.fastlms.member.model.MemberInput;
 import com.zerobase.fastlms.member.model.ResetPasswordInput;
 import com.zerobase.fastlms.member.service.MemberService;
+import com.zerobase.fastlms.util.PasswordUtils;
 import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -160,5 +161,26 @@ public class MemberController {
     model.addAttribute("parameter", parameter);
 
     return "member/reset_password_result";
+  }
+
+  @GetMapping("/member/withdraw")
+  public String memberWithdraw(Model model) {
+
+    return "member/withdraw";
+  }
+
+  @PostMapping("/member/withdraw")
+  public String memberWithdrawSubmit(Model model, MemberInput parameter, Principal principal) {
+
+    String userId = principal.getName();
+
+    ServiceResult result = memberService.withdraw(userId, parameter.getPassword());
+
+    if (!result.isResult()) {
+      model.addAttribute("message", result.getMessage());
+      return "common/error";
+    }
+
+    return "redirect:/member/logout";
   }
 }

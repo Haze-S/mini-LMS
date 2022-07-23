@@ -41,4 +41,7 @@ public class Course {
 
   LocalDateTime regDt;
   LocalDateTime udtDt;
+
+  String fileName;
+  String urlFileName;
 }

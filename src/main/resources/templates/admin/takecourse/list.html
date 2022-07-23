@@ -54,6 +54,11 @@
   <script>
     $(document).ready(function () {
 
+      $('#searchCourseId').on('change', function () {
+        let id = $(this).val();
+        location.href = '?searchCourseId=' + id;
+      })
+
       $('.row-buttons').on('click', function () {
         let status = $(this).val();
         let id = $(this).closest('div').find('input[name=id]').val();
@@ -76,7 +81,19 @@
   <h1>관리자 수강관리</h1>
   <div th:replace="/fragments/layout.html::fragment-admin-body-menu"></div>
   <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+
 <div class="list">
+
+  <div class="buttons">
+
+    <select id="searchCourseId">
+      <option value="">전체</option>
+      <option th:each="x : ${courseList}"
+              th:selected="${#strings.equals(param.searchCourseId, x.id)}"
+              th:value="${x.id}" th:text="${x.subject}">프로그래밍</option>
+    </select>
+  </div>
+
   <table>
     <thead>
       <th>NO</th>
@@ -123,11 +140,16 @@
         </div>
       </td>
     </tr>
+    <tr>
+      <td colspan="8" th:if="${#lists.size(list) < 1}">
+        <p class="nothing">내용이 없습니다.</p>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
 
-<div class="pager" th:text="${pager}"></div>
+<div class="pager" th:if="${#lists.size(list) > 0}" th:text="${pager}"></div>
 
 <form id="procForm" method="post" action="/admin/takecourse/status">
   <input type="hidden" name="id"/>

@@ -84,4 +84,11 @@ public interface MemberService extends UserDetailsService {
    * @param memberInput
    */
   ServiceResult updateMember(MemberInput memberInput);
+
+  /**
+   * 회원 탈퇴
+   *
+   * @param userId
+   */
+  ServiceResult withdraw(String userId, String password);
 }
